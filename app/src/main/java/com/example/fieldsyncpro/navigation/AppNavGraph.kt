@@ -3,6 +3,7 @@ package com.example.fieldsyncpro.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.assetdetails.navigation.AssetRoute
 import com.example.assetdetails.navigation.assetDetailsGraph
@@ -12,15 +13,22 @@ import com.example.checklist.navigation.ChecklistRoute
 import com.example.checklist.navigation.checklistGraph
 import com.example.dailyjobs.navigation.DailyJobsRoute
 import com.example.dailyjobs.navigation.dailyJobsGraph
+import com.example.fieldsyncpro.test.FirebaseTestScreen
 import com.example.jobdetails.navigation.JobDetailsRoute
 import com.example.jobdetails.navigation.jobDetailsGraph
 import com.example.photoupload.navigation.PhotoRoute
 import com.example.photoupload.navigation.photoUploadGraph
 import com.example.syncmanager.navigation.syncManagerGraph
 
+// Test route
+const val FIREBASE_TEST_ROUTE = "firebase_test"
+
 @Composable
 fun AppNavGraph(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, startDestination = AuthRoute.LOGIN) {
+        // Firebase Test Screen (for testing only)
+        composable(FIREBASE_TEST_ROUTE) { FirebaseTestScreen() }
+
         // Auth module
         authGraph(
                 onLoginSuccess = {
