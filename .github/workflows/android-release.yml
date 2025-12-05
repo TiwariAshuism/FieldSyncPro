@@ -35,27 +35,28 @@ jobs:
         key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: gradle-${{ runner.os }}-
 
-    # 4️⃣ Decode keystore
+    # 4️⃣ Create keystore.properties file
+    - name: Create keystore.properties
+      run: |
+        echo "KEYSTORE_FILE=release.keystore" > keystore.properties
+        echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
+        echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+        echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+
+    # 5️⃣ Decode keystore
     - name: Decode keystore
       run: |
         echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > release.keystore
 
-    # 5️⃣ Build Debug APK
+    # 6️⃣ Build Debug APK
     - name: Build Debug APK
       run: ./gradlew assembleDebug
 
-    # 6️⃣ Build Release APK
+    # 7️⃣ Build Release APK
     - name: Build Release APK
-      env:
-        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-      run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=release.keystore \
-                                     -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
-                                     -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
-                                     -Pandroid.injected.signing.key.password=$KEY_PASSWORD
+      run: ./gradlew assembleRelease
 
-    # 7️⃣ Create GitHub Release
+    # 8️⃣ Create GitHub Release
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
@@ -66,7 +67,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # 8️⃣ Upload APKs to the release
+    # 9️⃣ Upload APKs to the release
     - name: Upload APKs
       uses: softprops/action-gh-release@v1
       with:
