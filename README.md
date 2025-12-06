@@ -1,7 +1,8 @@
 # 🏭 Field Asset Inspection & Compliance Manager
 
 **Offline-First SaaS for Field Technicians**
-Built with **Kotlin, Jetpack Compose, Room, and Supabase** to enable field teams to manage work orders, inspections, and asset compliance — even in areas with poor or no internet connectivity.
+Built with **Kotlin, Jetpack Compose, Room, and Supabase** to enable field teams to manage work
+orders, inspections, and asset compliance — even in areas with poor or no internet connectivity.
 
 ---
 
@@ -16,7 +17,8 @@ Built with **Kotlin, Jetpack Compose, Room, and Supabase** to enable field teams
 
 ### Offline-First Sync
 
-* **Last Write Wins (LWW)** strategy at the **field level**, avoiding data loss when multiple users update the same record offline.
+* **Last Write Wins (LWW)** strategy at the **field level**, avoiding data loss when multiple users
+  update the same record offline.
 * Syncs automatically when internet is available.
 * Media uploads restricted to **Wi-Fi only** for efficiency.
 
@@ -27,13 +29,15 @@ Built with **Kotlin, Jetpack Compose, Room, and Supabase** to enable field teams
 
 ### Dynamic Forms & Checklists
 
-* Nested and flexible checklists supporting multiple input types: dropdowns, checkboxes, text fields.
+* Nested and flexible checklists supporting multiple input types: dropdowns, checkboxes, text
+  fields.
 * Save progress locally with “Saved Locally — Not Synced” indicators.
 * Complete checklist to mark tasks finished.
 
 ### Asset Management
 
-* View detailed asset information including photos, QR code scanning, inspection history, and metadata.
+* View detailed asset information including photos, QR code scanning, inspection history, and
+  metadata.
 * Add observations and upload images to assets directly from the field.
 
 ### Photo Capture & Upload
@@ -48,12 +52,26 @@ Built with **Kotlin, Jetpack Compose, Room, and Supabase** to enable field teams
 * Retry failed uploads and resolve conflicts manually if needed.
 * Monitor local changes and upload queue with a “Sync Now” button.
 
+### Screenshots
+
+| Login | Daily Jobs | Job Details |
+|:---:|:---:|:---:|
+| ![Login](screenshot/login_/_register_screen/screen.png) | ![Daily Jobs](screenshot/daily_jobs_list/screen.png) | ![Job Details](screenshot/job_details/screen.png) |
+
+| Asset Details | Checklist | Photo Capture |
+|:---:|:---:|:---:|
+| ![Asset Details](screenshot/asset_details/screen.png) | ![Checklist](screenshot/dynamic_checklist_form/screen.png) | ![Photo Capture](screenshot/photo_capture_&_upload/screen.png) |
+
+| Sync Manager | | |
+|:---:|:---:|:---:|
+| ![Sync Manager](screenshot/sync_manager/screen.png) | | |
+
 ---
 
 ## 📦 Tech Stack
 
 | Layer            | Technology                                     |
-| ---------------- | ---------------------------------------------- |
+|------------------|------------------------------------------------|
 | Mobile App       | Kotlin, Jetpack Compose                        |
 | Local DB         | Room                                           |
 | Networking / API | Supabase (Postgres, Realtime)                  |
@@ -93,7 +111,8 @@ feature-syncmanager/
 * **Offline-First**: All updates are cached locally and synced asynchronously.
 * **Last Write Wins (LWW)**: Merge offline updates at the field level to prevent data loss.
 * **Clean Architecture**: Separation of `data`, `domain`, and `ui`.
-* **Feature Navigation**: Each feature exposes its own `NavGraph` using a `FeatureNavigation` contract to avoid circular dependencies.
+* **Feature Navigation**: Each feature exposes its own `NavGraph` using a `FeatureNavigation`
+  contract to avoid circular dependencies.
 * **Multimodule**: Isolated modules for scalability and maintainability.
 
 ---
@@ -129,7 +148,8 @@ feature-syncmanager/
 
 ## 🌟 Contribution
 
-Contributions are welcome! Please open issues or submit pull requests for improvements, bug fixes, or new features.
+Contributions are welcome! Please open issues or submit pull requests for improvements, bug fixes,
+or new features.
 
 ---
 
@@ -144,7 +164,5 @@ If you want, I can also generate a **visual diagram in the README** showing:
 * Feature modules
 * Offline-first data flow
 * Supabase sync pipeline
-
-
 
 ----

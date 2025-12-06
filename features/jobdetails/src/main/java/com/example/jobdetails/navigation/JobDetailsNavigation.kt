@@ -16,37 +16,38 @@ fun NavGraphBuilder.jobDetailsGraph(
         onChecklistClick: (String) -> Unit,
         onSyncClick: () -> Unit
 ) {
-    composable(
-            route = JobDetailsRoute.JOB_DETAILS,
-            arguments = listOf(navArgument("jobId") { type = NavType.StringType })
-    ) { backStackEntry ->
-        val jobId = backStackEntry.arguments?.getString("jobId") ?: ""
+        composable(
+                route = JobDetailsRoute.JOB_DETAILS,
+                arguments = listOf(navArgument("jobId") { type = NavType.StringType })
+        ) { backStackEntry ->
+                val jobId = backStackEntry.arguments?.getString("jobId") ?: ""
 
-        // Create ViewModel with dependencies
-        // In a real app, use Hilt/Dagger for dependency injection
-        val repository = JobDetailsRepository()
-        val useCase = GetJobDetailsUseCase(repository)
-        val viewModel: JobDetailsViewModel =
-                viewModel(
-                        factory =
-                                object : androidx.lifecycle.ViewModelProvider.Factory {
-                                    override fun <T : androidx.lifecycle.ViewModel> create(
-                                            modelClass: Class<T>
-                                    ): T {
-                                        @Suppress("UNCHECKED_CAST")
-                                        return JobDetailsViewModel(useCase) as T
-                                    }
-                                }
+                // Create ViewModel with dependencies
+                // In a real app, use Hilt/Dagger for dependency injection
+                val repository = JobDetailsRepository()
+                val useCase = GetJobDetailsUseCase(repository)
+                val viewModel: JobDetailsViewModel =
+                        viewModel(
+                                factory =
+                                        object : androidx.lifecycle.ViewModelProvider.Factory {
+                                                override fun <
+                                                        T : androidx.lifecycle.ViewModel> create(
+                                                        modelClass: Class<T>
+                                                ): T {
+                                                        @Suppress("UNCHECKED_CAST")
+                                                        return JobDetailsViewModel(useCase) as T
+                                                }
+                                        }
+                        )
+
+                JobDetailsScreen(
+                        jobId = jobId,
+                        viewModel = viewModel,
+                        onNavigateBack = onNavigateBack,
+                        onAssetClick = onAssetClick,
+                        onChecklistClick = { onChecklistClick(jobId) },
+                        onStartInspection = { onChecklistClick(jobId) },
+                        onSyncClick = onSyncClick
                 )
-
-        JobDetailsScreen(
-                jobId = jobId,
-                viewModel = viewModel,
-                onNavigateBack = onNavigateBack,
-                onAssetClick = onAssetClick,
-                onChecklistClick = { onChecklistClick(jobId) },
-                onStartInspection = { /* Handle start inspection */},
-                onSyncClick = onSyncClick
-        )
-    }
+        }
 }

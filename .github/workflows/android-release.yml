@@ -13,58 +13,58 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Checkout code
-    - name: Checkout
-      uses: actions/checkout@v4
+      # 1️⃣ Checkout code
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    # 2️⃣ Make Gradle wrapper executable
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
+      # 2️⃣ Make Gradle wrapper executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
-    # 3️⃣ Set up JDK with caching
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-        cache: 'gradle'
+      # 3️⃣ Set up JDK with caching
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
 
-    # 4️⃣ Setup Gradle for faster builds
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      with:
-        cache-read-only: false
+      # 4️⃣ Setup Gradle for faster builds
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: false
 
-    # 5️⃣ Create keystore.properties file
-    - name: Create keystore.properties
-      run: |
-        echo "KEYSTORE_FILE=release.keystore" > keystore.properties
-        echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
-        echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> keystore.properties
-        echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+      # 5️⃣ Create keystore.properties file
+      - name: Create keystore.properties
+        run: |
+          echo "KEYSTORE_FILE=release.keystore" > keystore.properties
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
 
-    # 6️⃣ Decode keystore
-    - name: Decode keystore
-      run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > release.keystore
+      # 6️⃣ Decode keystore
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > release.keystore
 
-    # 7️⃣ Build both APKs in parallel
-    - name: Build Debug and Release APKs
-      run: ./gradlew assembleDebug assembleRelease --parallel --build-cache --configuration-cache
+      # 7️⃣ Build both APKs in parallel
+      - name: Build Debug and Release APKs
+        run: ./gradlew assembleDebug assembleRelease --parallel --build-cache --configuration-cache
 
-    # 8️⃣ Create GitHub Release
-    - name: Create Release
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: v${{ github.run_number }}
-        name: Release v${{ github.run_number }}
-        body: |
-          🚀 Automated release from GitHub Actions
-          
-          📦 APKs included:
-          - Debug APK (for testing)
-          - Release APK (production-ready, signed)
-        files: |
-          app/build/outputs/apk/debug/app-debug.apk
-          app/build/outputs/apk/release/app-release.apk
-        draft: false
-        prerelease: false
+      # 8️⃣ Create GitHub Release
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            🚀 Automated release from GitHub Actions
+            
+            📦 APKs included:
+            - Debug APK (for testing)
+            - Release APK (production-ready, signed)
+          files: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/release/app-release.apk
+          draft: false
+          prerelease: false
