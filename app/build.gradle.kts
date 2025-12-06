@@ -1,5 +1,5 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -92,7 +92,7 @@ dependencies {
     implementation(project(":features:checklist"))
     implementation(project(":features:photoupload"))
     implementation(project(":features:syncmanager"))
-    
+
     // Core UI theme
     implementation(project(":core:core-ui"))
 }

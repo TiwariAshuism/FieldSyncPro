@@ -10,22 +10,24 @@ enum class JobStatus {
 fun getStatusColorForJob(status: JobStatus): StatusColor {
     return when (status) {
         JobStatus.PENDING ->
-                StatusColor(
-                        label = "PENDING",
-                        textColor = StatusPending,
-                        backgroundColor = StatusPending.copy(alpha = 0.2f)
-                )
+            StatusColor(
+                label = "PENDING",
+                textColor = StatusPending,
+                backgroundColor = StatusPending.copy(alpha = 0.2f)
+            )
+
         JobStatus.IN_PROGRESS ->
-                StatusColor(
-                        label = "IN PROGRESS",
-                        textColor = StatusInProgress,
-                        backgroundColor = StatusInProgress.copy(alpha = 0.2f)
-                )
+            StatusColor(
+                label = "IN PROGRESS",
+                textColor = StatusInProgress,
+                backgroundColor = StatusInProgress.copy(alpha = 0.2f)
+            )
+
         JobStatus.COMPLETED ->
-                StatusColor(
-                        label = "COMPLETED",
-                        textColor = StatusCompleted,
-                        backgroundColor = StatusCompleted.copy(alpha = 0.2f)
-                )
+            StatusColor(
+                label = "COMPLETED",
+                textColor = StatusCompleted,
+                backgroundColor = StatusCompleted.copy(alpha = 0.2f)
+            )
     }
 }

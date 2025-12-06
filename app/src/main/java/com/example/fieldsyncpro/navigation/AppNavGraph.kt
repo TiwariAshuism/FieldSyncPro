@@ -13,26 +13,22 @@ import com.example.checklist.navigation.ChecklistRoute
 import com.example.checklist.navigation.checklistGraph
 import com.example.dailyjobs.navigation.DailyJobsRoute
 import com.example.dailyjobs.navigation.dailyJobsGraph
-import com.example.fieldsyncpro.test.FirebaseTestScreen
 import com.example.jobdetails.navigation.JobDetailsRoute
 import com.example.jobdetails.navigation.jobDetailsGraph
-import com.example.photoupload.navigation.PhotoRoute
 import com.example.photoupload.navigation.photoUploadGraph
+import com.example.syncmanager.navigation.SyncRoute
 import com.example.syncmanager.navigation.syncManagerGraph
-
-// Test route
-const val FIREBASE_TEST_ROUTE = "firebase_test"
 
 @Composable
 fun AppNavGraph(navController: NavHostController = rememberNavController()) {
     NavHost(navController = navController, startDestination = AuthRoute.LOGIN) {
         // Firebase Test Screen (for testing only)
-        composable(FIREBASE_TEST_ROUTE) { FirebaseTestScreen() }
+        //composable(FIREBASE_TEST_ROUTE) { FirebaseTestScreen() }
 
         // Auth module
         authGraph(
                 onLoginSuccess = {
-                    navController.navigate(DailyJobsRoute.DAILY_JOBS_LIST) {
+                    navController.navigate(SyncRoute.INITIAL_SYNC) {
                         popUpTo(AuthRoute.LOGIN) { inclusive = true }
                     }
                 }
@@ -51,13 +47,17 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
                 },
                 onChecklistClick = { jobId ->
                     navController.navigate(ChecklistRoute.createRoute(jobId))
-                }
+                },
+                onSyncClick = { navController.navigate(SyncRoute.SYNC_MANAGER) }
         )
 
         // Asset Details module
         assetDetailsGraph(
                 onNavigateBack = { navController.popBackStack() },
-                onTakePhoto = { assetId -> navController.navigate(PhotoRoute.createRoute(assetId)) }
+                onTakePhoto = { assetId ->
+                    navController.navigate(AssetRoute.photoCapture(assetId))
+                },
+                onPhotoSaved = { navController.popBackStack() }
         )
 
         // Checklist module
@@ -72,8 +72,10 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
         // Sync Manager module
         syncManagerGraph(
                 onNavigateBack = { navController.popBackStack() },
-                onSyncAll = {
-                    // Trigger sync operation
+                onSyncComplete = {
+                    navController.navigate(DailyJobsRoute.DAILY_JOBS_LIST) {
+                        popUpTo(SyncRoute.INITIAL_SYNC) { inclusive = true }
+                    }
                 }
         )
     }

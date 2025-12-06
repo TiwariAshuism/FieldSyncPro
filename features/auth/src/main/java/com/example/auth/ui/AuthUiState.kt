@@ -1,12 +1,12 @@
 package com.example.auth.ui
 
 data class AuthFormState(
-        val email: String = "",
-        val password: String = "",
-        val isLoginMode: Boolean = true,
-        val isPasswordVisible: Boolean = false,
-        val emailError: String? = null,
-        val passwordError: String? = null
+    val email: String = "",
+    val password: String = "",
+    val isLoginMode: Boolean = true,
+    val isPasswordVisible: Boolean = false,
+    val emailError: String? = null,
+    val passwordError: String? = null
 )
 
 sealed class AuthUiState {

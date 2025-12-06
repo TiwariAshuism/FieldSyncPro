@@ -19,29 +19,29 @@ class DailyJobsViewModel : ViewModel() {
         // TODO: Load from repository
         // For now, using sample data
         val sampleJobs =
-                listOf(
-                        Job(
-                                id = "1",
-                                title = "HVAC Unit #3 Inspection",
-                                location = "Main Campus, Building A, Floor 3, Room 301",
-                                status = JobStatus.PENDING,
-                                isSynced = true
-                        ),
-                        Job(
-                                id = "2",
-                                title = "Fire Extinguisher Check",
-                                location = "Main Campus, Building B, Floor 1, Room 105",
-                                status = JobStatus.IN_PROGRESS,
-                                isSynced = false
-                        ),
-                        Job(
-                                id = "3",
-                                title = "Plumbing Leak Repair",
-                                location = "West Wing, Building C, Basement, Utility Closet",
-                                status = JobStatus.COMPLETED,
-                                isSynced = true
-                        )
+            listOf(
+                Job(
+                    id = "1",
+                    title = "HVAC Unit #3 Inspection",
+                    location = "Main Campus, Building A, Floor 3, Room 301",
+                    status = JobStatus.PENDING,
+                    isSynced = true
+                ),
+                Job(
+                    id = "2",
+                    title = "Fire Extinguisher Check",
+                    location = "Main Campus, Building B, Floor 1, Room 105",
+                    status = JobStatus.IN_PROGRESS,
+                    isSynced = false
+                ),
+                Job(
+                    id = "3",
+                    title = "Plumbing Leak Repair",
+                    location = "West Wing, Building C, Basement, Utility Closet",
+                    status = JobStatus.COMPLETED,
+                    isSynced = true
                 )
+            )
 
         _uiState.value = DailyJobsUiState.Success(jobs = sampleJobs, isOnline = true)
     }

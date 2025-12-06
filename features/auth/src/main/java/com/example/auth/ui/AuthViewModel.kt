@@ -38,10 +38,12 @@ class AuthViewModel : ViewModel() {
                 _formState.update { it.copy(emailError = "Email is required") }
                 false
             }
+
             !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 _formState.update { it.copy(emailError = "Invalid email format") }
                 false
             }
+
             else -> true
         }
     }
@@ -52,12 +54,14 @@ class AuthViewModel : ViewModel() {
                 _formState.update { it.copy(passwordError = "Password is required") }
                 false
             }
+
             password.length < 6 -> {
                 _formState.update {
                     it.copy(passwordError = "Password must be at least 6 characters")
                 }
                 false
             }
+
             else -> true
         }
     }
@@ -72,10 +76,10 @@ class AuthViewModel : ViewModel() {
             // TODO: Implement actual authentication logic
             // For now, simulate success
             _uiState.value =
-                    AuthUiState.Success(
-                            if (currentState.isLoginMode) "Login successful"
-                            else "Registration successful"
-                    )
+                AuthUiState.Success(
+                    if (currentState.isLoginMode) "Login successful"
+                    else "Registration successful"
+                )
         }
     }
 }

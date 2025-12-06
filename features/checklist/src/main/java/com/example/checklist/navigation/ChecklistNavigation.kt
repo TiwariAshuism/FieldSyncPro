@@ -8,8 +8,8 @@ import com.example.checklist.ui.DynamicChecklistScreen
 
 fun NavGraphBuilder.checklistGraph(onNavigateBack: () -> Unit) {
     composable(
-            route = ChecklistRoute.CHECKLIST,
-            arguments = listOf(navArgument("jobId") { type = NavType.StringType })
+        route = ChecklistRoute.CHECKLIST,
+        arguments = listOf(navArgument("jobId") { type = NavType.StringType })
     ) { backStackEntry ->
         val jobId = backStackEntry.arguments?.getString("jobId") ?: ""
         DynamicChecklistScreen(jobId = jobId, onNavigateBack = onNavigateBack)

@@ -6,7 +6,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.assetdetails.ui.AssetDetailsScreen
 
-fun NavGraphBuilder.assetDetailsGraph(onNavigateBack: () -> Unit, onTakePhoto: (String) -> Unit) {
+fun NavGraphBuilder.assetDetailsGraph(
+        onNavigateBack: () -> Unit,
+        onTakePhoto: (String) -> Unit,
+        onPhotoSaved: () -> Unit
+) {
     composable(
             route = AssetRoute.ASSET_DETAILS,
             arguments = listOf(navArgument("assetId") { type = NavType.StringType })
@@ -18,4 +22,18 @@ fun NavGraphBuilder.assetDetailsGraph(onNavigateBack: () -> Unit, onTakePhoto: (
                 onTakePhoto = { onTakePhoto(assetId) }
         )
     }
+
+    composable(
+            route = AssetRoute.PHOTO_CAPTURE,
+            arguments = listOf(navArgument("assetId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        val assetId = backStackEntry.arguments?.getString("assetId") ?: ""
+        com.example.photoupload.ui.PhotoCaptureScreen(
+                onNavigateBack = onNavigateBack,
+                onSave = onPhotoSaved,
+                contextId = assetId,
+                onPhotoCaptured = {}
+        )
+    }
+
 }

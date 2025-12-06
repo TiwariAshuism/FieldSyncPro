@@ -8,14 +8,14 @@ import com.example.photoupload.ui.PhotoCaptureScreen
 
 fun NavGraphBuilder.photoUploadGraph(onNavigateBack: () -> Unit, onPhotoCaptured: () -> Unit) {
     composable(
-            route = PhotoRoute.PHOTO_CAPTURE,
-            arguments = listOf(navArgument("contextId") { type = NavType.StringType })
+        route = PhotoRoute.PHOTO_CAPTURE,
+        arguments = listOf(navArgument("contextId") { type = NavType.StringType })
     ) { backStackEntry ->
         val contextId = backStackEntry.arguments?.getString("contextId") ?: "default"
         PhotoCaptureScreen(
-                contextId = contextId,
-                onNavigateBack = onNavigateBack,
-                onPhotoCaptured = onPhotoCaptured
+            contextId = contextId,
+            onNavigateBack = onNavigateBack,
+            onPhotoCaptured = onPhotoCaptured
         )
     }
 }
